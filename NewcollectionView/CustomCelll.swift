@@ -10,6 +10,12 @@ import UIKit
 class CustomCelll: UICollectionViewCell {
     @IBOutlet weak var itemLabel : UILabel!
     @IBOutlet weak var selectLabel : UILabel!
+    
+    var isEditing: Bool = false {
+        didSet{
+            selectLabel.isHidden = !isEditing
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectLabel.layer.cornerRadius = 15

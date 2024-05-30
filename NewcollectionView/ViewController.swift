@@ -16,10 +16,16 @@ class ViewController: UIViewController, UICollectionViewDelegate,UICollectionVie
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+        navigationItem.leftBarButtonItem = editButtonItem
         
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        collectionView.allowsMultipleSelection = editing
+        collectionView.indexPathsForVisibleItems.forEach{(indexPath) in let cell = collectionView.cellForItem(at: indexPath) as! CustomCelll
+            cell.isEditing = isEditing}
+    }
     @IBAction func addNewItem() {
         insertMultipleItems()
     }
@@ -62,6 +68,7 @@ class ViewController: UIViewController, UICollectionViewDelegate,UICollectionVie
 //        }
         
         cell.itemLabel.text = data[indexPath.item]
+        cell.isEditing = isEditing
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
